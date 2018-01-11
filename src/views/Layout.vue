@@ -8,7 +8,7 @@
 </template>
 <style lang="less">
   .inner-row {
-    max-width: 1170px;
+    // max-width: 1170px;
     margin: 0 auto;
   }
   .layout-container {

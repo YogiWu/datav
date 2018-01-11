@@ -1,32 +1,30 @@
 <template>
-  <div @click="blurRenderItem" class="render-container">
-    <div drag-tag="modules" :class="{'active': activeModules, 'current': currentModule === render.config}" class="body" :style="customStyle">
-      <div class="phone-head">
-        <input class="page-title" type="text" ref="documentTitle" v-model="render.title">
-        <div class="page-config" @click.stop.prevent="editRenderItem(render.config)">
-          <el-tooltip content="页面设置" placement="top">
-            <i class="el-icon-setting"></i>
-          </el-tooltip>
-        </div>
-      </div>
+  <div @click="blurRenderItem" @click.stop.prevent="editRenderItem(render.config)" class="render-container">
+    <div drag-tag="modules" :class="{'active': activeModules, 'current': currentModule === render.config}" class="body" :style="customStyle" ref="renderBody">
       <div class="item" :key="item._timestamp" :class="{'current': currentModule === item}" v-for="(item, index) in items">
-        <ctrl-bar @on-sort="onSort" v-show="currentModule === item" :items="items" :item="item">
-          <el-tooltip content="拖拽" placement="top" v-if="items.length > 1">
-            <li>
-              <i class="el-icon-d-caret" @mousedown="drag(item)"></i>
-            </li>
-          </el-tooltip>
-        </ctrl-bar>
-        <div :drag-tag="'module-'+index" :drag-zone="!!item.children" @click.stop.prevent="editRenderItem(item)" :index="index" class="component" :class="[{active: activeModule.dragTag === 'module-' + index}, activeModule.position]">
-          <component :data="item.data" :is="components[item.type]">
-            <div :key="child._timestamp" v-if="item.children && item.children.length > 0" v-for="(child, childIndex) in item.children">
-              <dragMove :class="{'current': currentModule === child}" :drag="true" restriction=".component" @update="updateStyle(child, $event)" :p-style="child.style" :allowKeyMove="child === currentModule" @mousedown="editRenderItem(child)">
-                <ctrl-bar :hide-sort="true" v-show="currentModule === child" :items="item.children" :item="child"></ctrl-bar>
-                <component :data="child.data" :is="components[child.type]" :style="child.style"></component>
-              </dragMove>
-            </div>
-          </component>
-        </div>
+        <dragMove :class="{'current': currentModule === item}" :drag="true" restriction=".component" @update="updateStyle(item, $event)" :p-style="item.style" :allowKeyMove="item === currentModule" @mousedown="editRenderItem(item)">
+          <ctrl-bar :hide-sort="true" v-show="currentModule === item" :items="items" :item="item">
+          <!-- <ctrl-bar @on-sort="onSort" v-show="currentModule === item" :items="items" :item="item"> -->
+            <!-- <el-tooltip content="拖拽" placement="top" v-if="items.length > 1">
+              <li>
+                <i class="el-icon-d-caret" @mousedown="drag(item)"></i>
+              </li>
+            </el-tooltip> -->
+          </ctrl-bar>
+          <component :data="item.data" :is="components[item.type]"></component>
+          <!-- <div :drag-tag="'module-'+index" :drag-zone="!!item.children" @click.stop.prevent="editRenderItem(item)" :index="index" class="component" :class="[{active: activeModule.dragTag === 'module-' + index}, activeModule.position]"> -->
+            <!-- <component :data="item.data" :is="components[item.type]"> -->
+              <!-- slot -->
+              <!-- <div :key="child._timestamp" v-for="(child, childIndex) in item.children" v-if="item.children && item.children.length > 0">
+                <dragMove :class="{'current': currentModule === child}" :drag="true" restriction=".component" @update="updateStyle(child, $event)" :p-style="child.style" :allowKeyMove="child === currentModule" @mousedown="editRenderItem(child)">
+                  <ctrl-bar :hide-sort="true" v-show="currentModule === child" :items="item.children" :item="child"></ctrl-bar>
+                  <component :data="child.data" :is="components[child.type]" :style="child.style"></component>
+                </dragMove>
+              </div> -->
+              <!-- end-slot -->
+            <!-- </component> -->
+          <!-- </div> -->
+        </dragMove>
       </div>
     </div>
     <drag-drop></drag-drop>
@@ -51,9 +49,10 @@
   .render-container {
     overflow-y: auto;
     .body {
-      width: 375px;
-      min-height: 667px;
-      padding-top: 64px;
+      width: 80%;
+      // height: 10px;
+      // min-height: 667px;
+      // padding-top: 64px;
       margin: 20px auto 30px;
       user-select: none;
       box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.30);
@@ -106,7 +105,7 @@
         cursor: pointer;
         position: relative;
         &.current {
-          outline: 2px solid #2196F3;
+          // outline: 2px solid #2196F3;
           z-index: 998;
         }
         .placeholder {
@@ -124,6 +123,7 @@
         }
       }
       .component {
+        position: absolute;
         &.active.top {
           &:before:extend(.dropArea) {
             //
@@ -169,6 +169,9 @@ export default {
     function setFontSize() {
       document.documentElement.style.fontSize = '20px'
     }
+    this.$nextTick(() => {
+      this.$refs.renderBody.style.height = this.$refs.renderBody.offsetWidth*9/16+'px'
+    })
   },
 
   watch: {
@@ -189,6 +192,10 @@ export default {
     }),
     customStyle() {
       return createStyles(this.render.config)
+    // },
+    // renderHeight() {
+    //   console.log(this.$refs);
+    //   return this.$refs.renderBody.style.width*9/16
     }
   },
 

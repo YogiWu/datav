@@ -2,25 +2,25 @@ export const modules = [
   {
     title: '常规',
     items: [
-      {
-        alias: '相对定位',
-        type: 'relative',
-        icon: 'menu', //from http://element.eleme.io/#/zh-CN/component/icon
-        children: [],
-        data: {
-          style: {
-            type: 'htmlStyle',
-            title: '样式',
-            value: {
-              height: {
-                type: "inputNumber",
-                value: "300px"
-              }
-            }
-          }
-        },
-        component: require('./relative.vue')
-      },
+      // {
+      //   alias: '相对定位',
+      //   type: 'relative',
+      //   icon: 'menu', //from http://element.eleme.io/#/zh-CN/component/icon
+      //   children: [],
+      //   data: {
+      //     style: {
+      //       type: 'htmlStyle',
+      //       title: '样式',
+      //       value: {
+      //         height: {
+      //           type: "inputNumber",
+      //           value: "300px"
+      //         }
+      //       }
+      //     }
+      //   },
+      //   component: require('./relative.vue')
+      // },
       {
         alias: '文本',
         type: 'txt',

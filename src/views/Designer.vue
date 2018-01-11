@@ -260,6 +260,7 @@ html {
   .modules-container {
     flex: 0 0 230px;
     border-right: 1px solid #d3dce6;
+    overflow-y: auto;
   }
 
   .render-container {
