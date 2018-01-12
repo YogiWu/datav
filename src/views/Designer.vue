@@ -23,8 +23,8 @@
   </div>
   <el-dialog size="full" custom-class="preview-dialog" title="预览" v-model="previewVisible">
     <div class="preview-frame">
-      <div class="page-title"></div>
-      <iframe src="/#preview" frameborder="0"></iframe>
+      <render class="render-preview"></render>
+      <!-- <iframe src="/#preview" frameborder="0"></iframe> -->
     </div>
   </el-dialog>
   <el-dialog size="tiny" title="二维码" v-model="qrcode.visible">
@@ -298,10 +298,10 @@ html {
 }
 .preview-dialog {
   .preview-frame {
-    width: 375px;
-    min-height: 667px;
-    background: #fff url("../assets/img/phone-head.png") no-repeat;
-    padding-top: 64px;
+    // width: 375px;
+    width: 80vw;
+    height: 80vh;
+    // overflow-y: auto;
     margin: 20px auto 30px;
     user-select: none;
     box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.30);
@@ -317,10 +317,15 @@ html {
       width: 210px;
       background: transparent;
     }
-    iframe {
+    .render-preview .body{
       width: 100%;
-      height: 667px;
+      height: 100%!important;
+      margin: 0;
     }
+    // iframe {
+    //   width: 100%;
+    //   height: 100%;
+    // }
   }
 }
 </style>

@@ -117,7 +117,7 @@ export const modules = [
                 },
                 'image': {
                   type: 'inputImage',
-                  value: 'http://img1.ffan.com/T1xEWTBmET1RCvBVdK'
+                  value: null
                 }
               }
             ],
@@ -164,6 +164,39 @@ export const modules = [
           }
         },
         component: require('./swipe.vue')
+      }
+    ]
+  },
+  {
+    title: '图表',
+    items: [
+      {
+        alias: '饼状图',
+        type: '',
+        icon: 'time',
+        data: {
+          time: {
+            type: 'inputDate',
+            sub: 'datetimerange',
+            rule: 'timerange',
+            value: []
+          }
+        },
+        component: require('./countdown.vue')
+      },
+      {
+        alias: '柱状图',
+        type: 'countdown',
+        icon: 'time',
+        data: {
+          time: {
+            type: 'inputDate',
+            sub: 'datetimerange',
+            rule: 'timerange',
+            value: []
+          }
+        },
+        component: require('./countdown.vue')
       }
     ]
   },

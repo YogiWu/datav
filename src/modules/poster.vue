@@ -20,8 +20,8 @@
     text-align: center;
 
     img {
-      width: 100%;
-      max-width: 100%;
+      width: 200px;
+    //   max-width: 100%;
       height: auto;
     }
   }

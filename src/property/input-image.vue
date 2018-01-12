@@ -9,14 +9,16 @@
     >
       <em>{{data.value}}</em>
     </el-tag>-->
-    <el-upload action="/api/files"
+    <el-upload  
+    action=""
     :class="{'disable-upload': data.value}"
     :file-list="fileList"
     list-type="picture-card"
     :on-preview="handlePictureCardPreview"
     :on-success="handleSuccess"
     :on-remove="handleRemove"
-    :on-error="handleError">
+    :on-error="handleError"
+    :auto-upload="false">
       <i class="el-icon-plus avatar-uploader-icon"></i>
       <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
     </el-upload>
@@ -65,7 +67,8 @@ export default {
   methods: {
     handleSuccess(response, file, fileList) {
       console.log(response, file, fileList)
-      this.data.value = (response[0].url.indexOf('http') === -1) ? 'http://' + response[0].url : response[0].url;
+      // this.data.value = (response[0].url.indexOf('http') === -1) ? 'http://' + response[0].url : response[0].url;
+      console.log(111);
     },
     handleError(err, response, file) {
       console.log(err, response, file);
@@ -76,6 +79,7 @@ export default {
     },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;
+      this.data.value = file.url;
       this.dialogVisible = true;
     }
   }

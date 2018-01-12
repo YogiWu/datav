@@ -2,28 +2,9 @@
   <div @click="blurRenderItem" @click.stop.prevent="editRenderItem(render.config)" class="render-container">
     <div drag-tag="modules" :class="{'active': activeModules, 'current': currentModule === render.config}" class="body" :style="customStyle" ref="renderBody">
       <div class="item" :key="item._timestamp" :class="{'current': currentModule === item}" v-for="(item, index) in items">
-        <dragMove :class="{'current': currentModule === item}" :drag="true" restriction=".component" @update="updateStyle(item, $event)" :p-style="item.style" :allowKeyMove="item === currentModule" @mousedown="editRenderItem(item)">
-          <ctrl-bar :hide-sort="true" v-show="currentModule === item" :items="items" :item="item">
-          <!-- <ctrl-bar @on-sort="onSort" v-show="currentModule === item" :items="items" :item="item"> -->
-            <!-- <el-tooltip content="拖拽" placement="top" v-if="items.length > 1">
-              <li>
-                <i class="el-icon-d-caret" @mousedown="drag(item)"></i>
-              </li>
-            </el-tooltip> -->
-          </ctrl-bar>
-          <component :data="item.data" :is="components[item.type]"></component>
-          <!-- <div :drag-tag="'module-'+index" :drag-zone="!!item.children" @click.stop.prevent="editRenderItem(item)" :index="index" class="component" :class="[{active: activeModule.dragTag === 'module-' + index}, activeModule.position]"> -->
-            <!-- <component :data="item.data" :is="components[item.type]"> -->
-              <!-- slot -->
-              <!-- <div :key="child._timestamp" v-for="(child, childIndex) in item.children" v-if="item.children && item.children.length > 0">
-                <dragMove :class="{'current': currentModule === child}" :drag="true" restriction=".component" @update="updateStyle(child, $event)" :p-style="child.style" :allowKeyMove="child === currentModule" @mousedown="editRenderItem(child)">
-                  <ctrl-bar :hide-sort="true" v-show="currentModule === child" :items="item.children" :item="child"></ctrl-bar>
-                  <component :data="child.data" :is="components[child.type]" :style="child.style"></component>
-                </dragMove>
-              </div> -->
-              <!-- end-slot -->
-            <!-- </component> -->
-          <!-- </div> -->
+        <dragMove :class="{'current': currentModule === item}" :drag="true" restriction=".component" @update="updateStyle(item, $event)" :p-style="item.style" :allowKeyMove="item === currentModule">
+          <ctrl-bar :hide-sort="true" v-show="currentModule === item" :items="items" :item="item"></ctrl-bar>
+          <component :data="item.data" :is="components[item.type]" @mousedown="editRenderItem(item)"></component>
         </dragMove>
       </div>
     </div>
@@ -217,6 +198,7 @@ export default {
       }, 0)
     },
     updateStyle(item, position) {
+      console.log(item,position)
       item.style = {
         ...item.style,
         ...position
