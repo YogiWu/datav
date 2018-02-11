@@ -17,7 +17,7 @@
   <div class="container inner-row">
     <module-container></module-container>
 
-    <render></render>
+    <render @resize="getResize"></render>
 
     <property></property>
   </div>
@@ -139,6 +139,11 @@ export default {
       }
 
       return data
+    },
+
+    getResize(width, height) {
+      this.preWidth = width;
+      this.preHeight = height;
     },
 
     save() {
@@ -321,6 +326,8 @@ html {
       width: 100%;
       height: 100%!important;
       margin: 0;
+      pointer-events: none;
+      cursor: default;
     }
     // iframe {
     //   width: 100%;

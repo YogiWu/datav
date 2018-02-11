@@ -22,7 +22,8 @@ const normalMutations = {
   editDraging: t.EDIT_DRAGING,
   editRenderData: t.EDIT_RENDER_DATA,
   editModuleData: t.EDIT_MODULE_DATA,
-  resetRenderState: t.RESET_RENDER_STATE
+  resetRenderState: t.RESET_RENDER_STATE,
+  editItemStyle: t.EDIT_ITEM_STYLE
 };
 
 // 跳转登录

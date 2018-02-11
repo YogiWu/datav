@@ -28,7 +28,8 @@
     background-clip: content-box;
   }
   .render-container {
-    overflow-y: auto;
+    // overflow-y: auto;
+    height:100%;
     .body {
       width: 80%;
       // height: 10px;
@@ -172,6 +173,7 @@ export default {
       currentModule: 'currentModule'
     }),
     customStyle() {
+      console.log(this.render.config)
       return createStyles(this.render.config)
     // },
     // renderHeight() {
@@ -184,7 +186,8 @@ export default {
     ...mapActions([
       'editRenderItem',
       'blurRenderItem',
-      'editDragModule'
+      'editDragModule',
+      'editItemStyle'
     ]),
     drag(item) {
       var index = this.items.indexOf(item);
@@ -198,7 +201,8 @@ export default {
       }, 0)
     },
     updateStyle(item, position) {
-      console.log(item,position)
+      // if(item.$treeNodeId)localStorage[item.$treeNodeId] = position
+      this.editItemStyle(item.$treeNodeId,position)
       item.style = {
         ...item.style,
         ...position

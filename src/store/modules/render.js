@@ -10,7 +10,8 @@ import {
   EDIT_DRAGING,
   EDIT_RENDER_DATA,
   EDIT_MODULE_DATA,
-  RESET_RENDER_STATE
+  RESET_RENDER_STATE,
+  EDIT_ITEM_STYLE
 } from '../mutation-types'
 
 import defaultConfig from '@/constants/default'
@@ -94,6 +95,19 @@ const mutations = {
 
   [RESET_RENDER_STATE](state, store) {
     createDefaultState(state)
+  },
+
+  [EDIT_ITEM_STYLE] ($treeNodeId, style) {
+    let item = state.items.find(element => {
+      element.$treeNodeId === $treeNodeId
+    });
+    console.log(state.items, style)
+    if(item) {
+      item.style = {
+        ...item.style,
+        ...style
+      }
+    } 
   }
 }
 
